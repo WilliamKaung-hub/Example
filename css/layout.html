@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Grid Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .grid-layout {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        /* 250px fixed sidebar, 1fr for the rest */
+        gap: 20px;
+        height: 100vh;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .sidebar {
+        background-color: #333;
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+      }
+
+      .right-side {
+        display: grid;
+        grid-template-rows: 100px 1fr 100px;
+        /* Row height ratios */
+        gap: 20px;
+      }
+
+      .header {
+        background-color: #182599;
+        padding: 20px;
+        border-radius: 8px;
+      }
+
+      .footer {
+        background-color: #991879;
+        padding: 20px;
+        border-radius: 8px;
+      }
+
+      .content {
+        background-color: #20723c;
+        padding: 20px;
+        border-radius: 8px;
+      }
+      .center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      h1 {
+        color: #fff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="grid-layout">
+      <div class="sidebar center"><h1>Sidebar</h1></div>
+      <div class="right-side">
+        <div class="header center"><h1>Header</h1></div>
+        <div class="content center"><h1>Content</h1></div>
+        <div class="footer center"><h1>Footer</h1></div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Selector2 Example</title>
+    <style>
+      div#main p.intro{
+        color: blue;
+        font-size: 20px;
+      }
+      div#main .intro:hover{
+        color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <p class="intro">This is Introduction in "main".</p>
+    </div>
+    <p class="intro">This is Introduction outside of "main"</p>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Selector Example</title>
+    <style>
+      body {
+        background-color: red;
+      }
+      /* select with tag name */
+      div {
+        background-color: red;
+      }
+      /* select with dot (.) , affects to tags with class*/
+      p.intro {
+        color: blue;
+      }
+      /* select with dot (.) and (:) and listen mouse hover event , affects to tags with class*/
+      p.intro:hover {
+        color: yellow;
+      }
+      /* select with sharp(#) character, affects to tag with id */
+      p#sharp {
+        color: green;
+      }
+      /* select with sharp(#) character and listen mouse hover event, affects to tag with id */
+      p#sharp:hover {
+        color: yellow;
+      }
+      /* brackets ([attr='value']): ,  affects to the input tags of the type text */
+      input[type="text"] {
+        color: blue;
+        height: 40px;
+        width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="intro">Introduction Paragraph</p>
+    <p class="highlight">Highlight Selector</p>
+    <p id="sharp">Sharp Selector</p>
+    <input type="text" placeholder="Enter Username" />
+  </body>
+</html>
