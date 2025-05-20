@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Var Let Const Variable</title>
+</head>
+<body>
+    <h1>Var Let Const Testing</h1>
+    <script>
+        var name = "Alice";// global scope variable
+        console.log(name);
+
+        var name = "Bob";
+        console.log(name);
+
+        let age= 25 ;// block scope variable
+        console.log(age);
+
+        age= 30 ; //let age = 30 ; Errors : cannot re-declaration
+        console.log(age);
+
+        const country =["Japan","Korea","China"];// block scope variable
+        console.log(country);
+
+        function testVatLetConst(){
+        if (true){
+                    var a = 10;
+                    let b =20 ;
+                    const c=30;
+                }
+                console.log(a);
+            }
+            testVatLetConst();
+    </script>
+</body>
+</html>
