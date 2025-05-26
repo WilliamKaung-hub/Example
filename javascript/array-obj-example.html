@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Object Example</title>
+</head>
+<body>
+    <h1>Javascript and methods Array of Object Destructuring Example</h1>
+    <script>
+        let fruits = ["apple","banana","mago"];
+        fruits.push("orange");
+        fruits.pop();
+        fruits.unshift("grape");
+        fruits.shift();
+        fruits.includes("banana");
+        fruits.indexOf("mango");
+        fruits.splice(1,1);
+        console.log(fruits)
+        const joinedResult = fruits.join(",");
+        console.log("joined result:" , joinedResult);
+        for(let i=0; i<fruits.length;i++){
+            console.log(fruits[i]);
+        }
+        for(let fruit of fruits){
+            console.log(fruit);
+        }
+
+        fruits.forEach(function(fruit){
+            console.log(fruit);
+        })
+
+        let person = {
+            name: "Alice",
+            age: 25,
+            greet: function(){
+                console.log("Hello, my name is"+ this.name);
+            },
+
+        };
+
+        console.log(person.name);
+        console.log("age");
+        person.greet();
+
+        let users = [
+            {name: "Alice", age: 25},
+            {name: "Bob", age: 30},
+            {name: "Charlie", age: 28},
+          ];
+          user.forEach((user) => {
+            console.log(user.name + "is"+ user.age + "years old.");
+
+          });
+
+          let colors=["red","green","blue"];
+          let[first,second] = colors;
+
+          console.log(first);
+          console.log(second);
+
+          let car = {
+            brand: "Toyota",
+            model:"Corolla",
+            year:2022,
+          };
+
+          let{ brand,model} = car;
+
+          console.log(brand);
+          console.log(model);
+    </script>
+</body>
+</html>

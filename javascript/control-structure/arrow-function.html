@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Javascript Arrow Function Examples</title>
+  </head>
+  <body>
+    <h1>Javascript Arrow Function Example</h1>
+    <script>
+      // greet();  //❌ Error: Cannot call
+      //✅ Function Expression:
+      const greet = function () {
+        console.log("Hello from function expression!");
+      };
+      greet();
+
+      //✅ Arrow Function:
+      const greet2 = () => {
+        console.log("Hello from arrow function!");
+      };
+
+      greet2();
+    </script>
+  </body>
+</html>

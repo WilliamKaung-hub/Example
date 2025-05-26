@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loop Example</title>
+</head>
+<body>
+    <h1>Javascript Loop Example</h1>
+    <script>
+        for(let i = 0; i < 5; i++){
+            console.log("for loop Number",i);
+        }
+
+        let count=0;
+        while(count) {
+                console.log("While loop Count:", count);
+                count++;
+            }
+
+        let num = 0;
+            do{
+                console.log("do....while loop Number",num);
+                num++;
+            }while(num < 5)
+
+         for(let i=0; i<10; i++){
+                if(i===4){
+                    continue;//skip the rest of this loop 
+                }
+                if(i===8){
+                    break;//Exit the loop entirely when
+                }
+                console.log("Break and continue:",i);
+            }
+    </script>
+    
+</body>
+</html>
