@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Creating Object</title>
+  </head>
+  <body>
+    <h1>Creating Object</h1>
+    <script>
+      class Car {
+        constructor(brand, year) {
+          this.brand = brand;
+          this.year = year;
+        }
+
+        getInfo() {
+          return `Brand: ${this.brand}, Year: ${this.year}`;
+        }
+      }
+      // Lesson 3: Creating Object
+      const car1 = new Car("Toyota", 2020);
+      console.log(car1.getInfo());
+    </script>
+  </body>
+</html>

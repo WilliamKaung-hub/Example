@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JS Class's Private Example</title>
+    </head>
+    <body>
+        <h1>JS Class's private Example</h1>
+        <script>
+            class Car{
+                #brand;
+                #year;
+
+                constructor(brand,year){
+                    this.#brand = brand;
+                    this.#year = year;
+                }
+
+                getInfo (){
+                    return `Brand: ${this.#brand}, Year: ${this.#year}`;
+                }
+            }
+            class motocycle extends Car{
+                speak(brand,year,maxspeed){
+                    super(brand,year);
+                    this.maxspeed = maxspeed;
+                }
+                 getInfo (){
+                    return `Brand: ${this.maxspeed}`;
+                }
+            }
+                const car = new Car("Toyota",2020,);
+                console.log(car.getInfo());
+
+                const motocycle = new moto("Yamaha",2018,230);
+                console.log(moto.getInfo());
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head><title>JS Class's setter</title></head>
+    <body>
+        <h1>JS Class's setter Example</h1>
+        <script>
+            class Circle{
+                constructor(radius){
+                    this._radius = radius;
+                }
+
+                set radius(value){
+                    if(value > 0){
+                        this._radius = value;
+                    }
+                    else {
+                        console.log("Radius must be positive")
+                    }
+                }
+                get radius() {
+                    return this._radius;
+                }
+            }
+
+            const c = new Circle(3);
+            c.radius = 5;
+            console.log(c.radius);
+            
+        </script>
+    </body>
+</html>
