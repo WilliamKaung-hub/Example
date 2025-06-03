@@ -11,7 +11,9 @@ export default class Person extends React.Component{
             name : "Mg Kaung",
             email : "kaungnyein@gmail.com",
             phoneNo: "09882282855",
+            address:"Yangon",
         };
+        
         this.onChangePhoneNo = this.onChangePhoneNo.bind(this);
     }
 
