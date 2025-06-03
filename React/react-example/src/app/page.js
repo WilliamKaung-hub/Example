@@ -5,7 +5,9 @@
 
 // import Example8 from "../component/Example8";
 // import Example9 from "../component/Example9";
-import Example10 from "../component/Example10";
+// import Example10 from "../component/Example10";
+// import Example11 from "../component/Example11";
+import Example13 from "../component/Example13";
 export default function Home() {
   return(
     <div>
@@ -13,8 +15,12 @@ export default function Home() {
       <Example6/>
       <Example7/> */}
       {/* <Example8/>
-      <Example9/> */}
+      <Example9/>
       <Example10/>
+      <Example11/> */}
+
+      <Example13/>  
+
 
     </div>
   )
