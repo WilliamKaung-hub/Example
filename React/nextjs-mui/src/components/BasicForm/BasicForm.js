@@ -30,7 +30,7 @@ export default function BasicForm() {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValue: {
-      role: "",
+      city : "",
     },
   });
 
