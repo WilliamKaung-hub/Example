@@ -1,9 +1,9 @@
-"use client"
+"use client";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme";
 
-import{ ThemeProvider} from '@mui/material/styles';
-import theme from './theme';
+const StyleRoot = ({ children }) => {
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+};
 
-export default function StyleRoot({children}){
-    return<ThemeProvider theme={theme}>{children}</ThemeProvider>
-
-}
+export default StyleRoot;

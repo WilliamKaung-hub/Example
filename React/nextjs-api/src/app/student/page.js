@@ -1,14 +1,34 @@
 "use client";
+
 import {
   Box,
-  TableConatainer,
+  Button,
+  Paper,
+  Stack,
   Table,
-  TabbleHead,
+  TableBody,
   TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  IconButton,
 } from "@mui/material";
+import axios from "axios";
 import Link from "next/link";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function StudentList() {
+  const getStudentList = async () => {
+    try {
+      console.log("getStudentList");
+      const response = await axios.get("/api/students");
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <Box padding={2}>
       <Stack alignItems="flex-end">
@@ -17,25 +37,25 @@ export default function StudentList() {
           <Button>Add Student</Button>
         </Link>
       </Stack>
-      <TableConatainer component={Paper}>
+      <TableContainer component={Paper}>
         <Table>
-          <TabbleHead>
-            <TabbleRow>
+          <TableHead>
+            <TableRow>
               <TableCell>No.</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Phone</TableCell>
               <TableCell>DOB</TableCell>
               <TableCell>Father name</TableCell>
-              <TableCell>Age</TableCell> 
+              <TableCell>Age</TableCell>
               <TableCell>Gender</TableCell>
               <TableCell>Address</TableCell>
               <TableCell>Major</TableCell>
-              <TableCell>Action</TableCell>
-            </TabbleRow>
-          </TabbleHead>
+              <TableCell align="center">Action</TableCell>
+            </TableRow>
+          </TableHead>
 
           <TableBody>
-            <TabbleRow>
+            <TableRow>
               <TableCell>1</TableCell>
               <TableCell>Dopp</TableCell>
               <TableCell>09888844441</TableCell>
@@ -45,11 +65,26 @@ export default function StudentList() {
               <TableCell>male</TableCell>
               <TableCell>sittwe</TableCell>
               <TableCell>Computer Science</TableCell>
-              <TableCell></TableCell>
-            </TabbleRow>
+
+              <TableCell align="center">
+                <Link href={"/students/1"} passHref>
+                  <IconButton>
+                    <VisibilityIcon />
+                  </IconButton>
+                </Link>
+                <Link href={"/students/1/edit"} passHref>
+                  <IconButton>
+                    <EditIcon />
+                  </IconButton>
+                </Link>
+                <IconButton>
+                  <DeleteIcon />
+                </IconButton>
+              </TableCell>
+            </TableRow>
           </TableBody>
         </Table>
-      </TableConatainer>
+      </TableContainer>
     </Box>
   );
 }
