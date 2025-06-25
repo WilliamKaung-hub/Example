@@ -1,38 +1,54 @@
+
 import { NextResponse } from "next/server";
 import * as yup from "yup";
+
+import { prisma } from "@/lib/prisma";
+
 //Validation Schema to validate clinet request.
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
-  fathername: yup.string().required("Father name is required"),
-  address: yup.string().required("Address is required"),
+  father_name: yup.string().required("Father name is required"),
   age: yup
     .number()
     .typeError("Age must be a number")
     .required("Age is required"),
+  phone: yup.string().required("Phone number is requied"),
+  gender: yup
+    .string()
+    .required("Gender is required")
+    .oneOf(["male", "female"], "Invalid Gender"),
+  address: yup.string().required("Address is required"),
+  dob:yup.date().required("DOB is required"),
   major: yup.string().required("Major is required"),
 });
 //Update student API
 export async function PUT(req, { params }) {
   try {
-    const StudentId = params.id; //get URI params field
+    const studentId = parseInt(params.id); //get URI params field
     const body = await req.json();
-    await schema.validate(body, { abortEarly: false });
+    const validateData = await schema.validate(body, { 
+      abortEarly: false ,
+      stripUnknown:true,
+    });
+    await prisma.book.update({
+      where: {id: studentId},
+      data : validateData,
+    })
+
     return NextResponse.json({
       message: "Student is Successfully updated.",
-      StudentId,
-      bodyData: body,
+      studentId  
+      //bodyData: body,
     });
   } catch (error) {
     if (error.name === "ValidationError") {
-      return NextResponse.json(
-    {
-         message: "Validation failed",
-          error: error.inner.map((e) => ({
-            path: e.path,
-            message: e.message,
-          })),
-    }
-      );
+      return NextResponse.json({
+        message: "Validation failed",
+        error: error.inner.map((e) => ({
+          path: e.path,
+          message: e.message,
+        })),
+      });
     }
 
     return NextResponse.json(
@@ -44,24 +60,32 @@ export async function PUT(req, { params }) {
     );
   }
 }
+//Delete Student API
 export async function DELETE(req, { params }) {
-  const StudentId = params.id;
+  try{
+  const StudentId =parseInt(params.id);
+  await prisma.student.delete({
+    where:{id : StudentId },
+  })
 
   return NextResponse.json({
     message: "Student is successfully deleted,",
     StudentId,
   });
+}catch(error){
+  return NextResponse.json({
+    message:"student not found or student deletion is fail",
+    status:404,
+  })
 }
-export async function GET(req, { params }) {
-  const StudentId = params.id;
+}
 
-  const student = {
+export async function GET(req, { params }) {
+  const StudentId = parseInt(params.id);
+  const student = await prisma.student.findUnique({
+  where: {
     id: StudentId,
-    name: "Kaung Kaung",
-    age: 14,
-    fathername: "U Kyaw Kyaw",
-    address: "Hledan",
-    major: "Computer Science",
-  };
+  }
+});
   return NextResponse.json(student);
 }

@@ -1,22 +1,10 @@
 import { NextResponse } from "next/server";
-
-const BookData = [
-  {
-    id: 1,
-    book_name: "Atomic Habits",
-    author: "William ",
-    year: "1989",
-  },
-  {
-    id: 2,
-    book_name: "To Do List",
-    author: "Henrry ",
-    year: "2018",
-  },
-];
+import { prisma } from "@/lib/prisma";
 
 export async function GET() {
-  return NextResponse.json(BookData);
+  const books = await prisma.book.findMany();
+      
+  return NextResponse.json(books);
 }
 
 export async function POST(req) {

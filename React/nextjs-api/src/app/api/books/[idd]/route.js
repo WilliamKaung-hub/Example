@@ -1,23 +1,34 @@
 import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 import * as yup from "yup";
 const schema = yup.object().shape({
-  bookname: yup.string().required("Name is required"),
+  title: yup.string().required("Name is required"),
   author: yup.string().required("Author name is required"),
-  year: yup
+  published_year: yup
     .number()
     .typeError("Year must be a number")
     .required("Year is required"),
-  genre: yup.string().required("Genre is required"),
 });
+//Update book API
 export async function PUT(req, { params }) {
   try {
-    const BookId = params.id; //get URI params field
+    const BookId =parseInt(params.idd); //get URI params field
     const body = await req.json();
-    await schema.validate(body, { abortEarly: false });
+    const validateData = await schema.validate(body, { 
+      abortEarly: false ,
+      stripUnknown:true,
+    })
+   const validateBook = await prisma.book.update({
+          where: {id: BookId},
+          data : validateData,
+        })
+      if(!validateBook){
+        return NextResponse.json({message : "Book not found"},{status : 404})
+      }
     return NextResponse.json({
       message: "Book is Successfully updated.",
       BookId,
-      bodyData: body,
+      validateBook,
     });
   } catch (error) {
     if (error.name === "ValidationError") {
@@ -33,7 +44,10 @@ export async function PUT(req, { params }) {
 }
 
 export async function DELETE(req, { params }) {
-  const BookId = params.id;
+  const BookId = parseInt(params.idd)
+  await prisma.book.delete({
+    where:{id : StudentId },
+  });
 
   return NextResponse.json({
     message: "Books is successfully deleted,",
