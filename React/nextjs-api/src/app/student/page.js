@@ -18,17 +18,23 @@ import Link from "next/link";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useEffect, useState } from "react";
 
 export default function StudentList() {
+  const   [students, setStudents] = useState([]);
   const getStudentList = async () => {
     try {
-      console.log("getStudentList");
+      // console.log("getStudentList");
       const response = await axios.get("/api/students");
       console.log(response.data);
+      setStudents(response.data);
     } catch (error) {
       console.error(error);
     }
   };
+  useEffect(() => {
+    getStudentList();
+  },[]);
   return (
     <Box padding={2}>
       <Stack alignItems="flex-end">
@@ -55,16 +61,17 @@ export default function StudentList() {
           </TableHead>
 
           <TableBody>
-            <TableRow>
-              <TableCell>1</TableCell>
-              <TableCell>Dopp</TableCell>
-              <TableCell>09888844441</TableCell>
-              <TableCell>4.8.2000</TableCell>
-              <TableCell>U Kyaw</TableCell>
-              <TableCell>20</TableCell>
-              <TableCell>male</TableCell>
-              <TableCell>sittwe</TableCell>
-              <TableCell>Computer Science</TableCell>
+          {students?.map((student, index)=>(
+             <TableRow key={student.id}>
+              <TableCell>{index+1}</TableCell>
+              <TableCell>{student.name}</TableCell>
+              <TableCell>{student.phone}</TableCell>
+              <TableCell>{student.dob}</TableCell>
+              <TableCell>{student.father_name}</TableCell>
+              <TableCell>{student.age}</TableCell>
+              <TableCell>{student.gender}</TableCell>
+              <TableCell>{student.address}</TableCell>
+              <TableCell>{student.major}</TableCell>
 
               <TableCell align="center">
                 <Link href={"/students/1"} passHref>
@@ -82,6 +89,8 @@ export default function StudentList() {
                 </IconButton>
               </TableCell>
             </TableRow>
+          ))}
+           
           </TableBody>
         </Table>
       </TableContainer>
