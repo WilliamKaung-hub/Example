@@ -38,7 +38,7 @@ export default function StudentList() {
   return (
     <Box padding={2}>
       <Stack alignItems="flex-end">
-        <Link passHref href="">
+        <Link passHref href="create">
           {" "}
           <Button>Add Student</Button>
         </Link>
@@ -74,12 +74,12 @@ export default function StudentList() {
               <TableCell>{student.major}</TableCell>
 
               <TableCell align="center">
-                <Link href={"/students/1"} passHref>
+                <Link href={`/students/${student.id}`} passHref>
                   <IconButton>
                     <VisibilityIcon />
                   </IconButton>
                 </Link>
-                <Link href={"/students/1/edit"} passHref>
+                <Link href={`/students/${student.id}/edit`} passHref>
                   <IconButton>
                     <EditIcon />
                   </IconButton>

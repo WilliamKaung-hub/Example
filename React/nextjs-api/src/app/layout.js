@@ -4,6 +4,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import StyleRoot from "./StyleRoot";
 import { Inter, Roboto_Mono } from "next/font/google";
 import Link from "next/link";
+import AppLayout from "@/component/appLayout";
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -25,7 +26,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${inter.variable} ${robotoMono.variable}`}>
         <AppRouterCacheProvider>
-          <StyleRoot>{children}</StyleRoot>
+          <StyleRoot>
+            <AppLayout> {children}</AppLayout>
+          </StyleRoot>
         </AppRouterCacheProvider>
       </body>
     </html>
