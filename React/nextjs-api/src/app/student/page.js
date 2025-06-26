@@ -12,6 +12,7 @@ import {
   TableHead,
   TableRow,
   IconButton,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
@@ -21,79 +22,138 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect, useState } from "react";
 
 export default function StudentList() {
-  const   [students, setStudents] = useState([]);
+  const [students, setStudents] = useState([]);
+
   const getStudentList = async () => {
     try {
-      // console.log("getStudentList");
       const response = await axios.get("/api/students");
-      console.log(response.data);
       setStudents(response.data);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching students:", error);
     }
   };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`/api/students/${id}`);
+      setStudents((prev) => prev.filter((student) => student.id !== id));
+    } catch (error) {
+      console.error("Error deleting student:", error);
+    }
+  };
+
   useEffect(() => {
     getStudentList();
-  },[]);
+  }, []);
+
   return (
-    <Box padding={2}>
-      <Stack alignItems="flex-end">
-        <Link passHref href="create">
-          {" "}
-          <Button>Add Student</Button>
-        </Link>
-      </Stack>
-      <TableContainer component={Paper}>
+    <Box
+      padding={4}
+      sx={{
+        backgroundColor: "#f5f7fa",
+        minHeight: "100vh",
+      }}
+    >
+      <Box
+        mb={3}
+        p={2}
+        borderRadius={2}
+        boxShadow={2}
+        sx={{ backgroundColor: "#fff" }}
+      >
+        <Stack direction="row" justifyContent="space-between" alignItems="center">
+          <Typography variant="h5" fontWeight="bold">
+            Student List
+          </Typography>
+          <Link href="/students/create" passHref>
+            <Button variant="contained" color="primary">
+              Add Student
+            </Button>
+          </Link>
+        </Stack>
+      </Box>
+
+      <TableContainer
+        component={Paper}
+        sx={{ borderRadius: 2, boxShadow: 3 }}
+      >
         <Table>
-          <TableHead>
+          <TableHead sx={{ backgroundColor: "#1976d2" }}>
             <TableRow>
-              <TableCell>No.</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>DOB</TableCell>
-              <TableCell>Father name</TableCell>
-              <TableCell>Age</TableCell>
-              <TableCell>Gender</TableCell>
-              <TableCell>Address</TableCell>
-              <TableCell>Major</TableCell>
-              <TableCell align="center">Action</TableCell>
+              {[
+                "No.",
+                "Name",
+                "Phone",
+                "DOB",
+                "Father Name",
+                "Age",
+                "Gender",
+                "Address",
+                "Major",
+                "Action",
+              ].map((header, idx) => (
+                <TableCell
+                  key={idx}
+                  sx={{ color: "#fff", fontWeight: "bold", textAlign: idx === 9 ? "center" : "left" }}
+                >
+                  {header}
+                </TableCell>
+              ))}
             </TableRow>
           </TableHead>
 
           <TableBody>
-          {students?.map((student, index)=>(
-             <TableRow key={student.id}>
-              <TableCell>{index+1}</TableCell>
-              <TableCell>{student.name}</TableCell>
-              <TableCell>{student.phone}</TableCell>
-              <TableCell>{student.dob}</TableCell>
-              <TableCell>{student.father_name}</TableCell>
-              <TableCell>{student.age}</TableCell>
-              <TableCell>{student.gender}</TableCell>
-              <TableCell>{student.address}</TableCell>
-              <TableCell>{student.major}</TableCell>
-
-              <TableCell align="center">
-                <Link href={`/students/${student.id}`} passHref>
-                  <IconButton>
-                    <VisibilityIcon />
-                  </IconButton>
-                </Link>
-                <Link href={`/students/${student.id}/edit`} passHref>
-                  <IconButton>
-                    <EditIcon />
-                  </IconButton>
-                </Link>
-                <IconButton>
-                  <DeleteIcon />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          ))}
-           
+            {students.length > 0 ? (
+              students.map((student, index) => (
+                <TableRow
+                  key={student.id}
+                  hover
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "#f0f0f0",
+                    },
+                  }}
+                >
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>{student.name}</TableCell>
+                  <TableCell>{student.phone}</TableCell>
+                  <TableCell>{student.dob}</TableCell>
+                  <TableCell>{student.father_name}</TableCell>
+                  <TableCell>{student.age}</TableCell>
+                  <TableCell>{student.gender}</TableCell>
+                  <TableCell>{student.address}</TableCell>
+                  <TableCell>{student.major}</TableCell>
+                  <TableCell align="center">
+                    <Link href={`/students/${student.id}`} passHref>
+                      <IconButton color="primary">
+                        <VisibilityIcon />
+                      </IconButton>
+                    </Link>
+                    <Link href={`/students/${student.id}/edit`} passHref>
+                      <IconButton color="success">
+                        <EditIcon />
+                      </IconButton>
+                    </Link>
+                    <IconButton
+                      color="error"
+                      onClick={() => handleDelete(student.id)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={10} align="center">
+                  No students found.
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </TableContainer>
     </Box>
   );
 }
+  

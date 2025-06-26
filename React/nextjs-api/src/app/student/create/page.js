@@ -11,6 +11,7 @@ import {
   Select,
   MenuItem,
   FormHelperText,
+  Paper,
 } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -65,10 +66,7 @@ export default function CreateStudent() {
   });
 
   const onSubmit = async (formData) => {
-    console.log("Submitted Form Data:", formData);
-
     try {
-      console.log("formData", formData);
       const bodyData = {
         name: formData.name,
         father_name: formData.father_name,
@@ -81,116 +79,138 @@ export default function CreateStudent() {
       };
       const response = await axios.post("/api/students", bodyData);
       reset();
-      console.log("Successfully Saved.");
+      console.log("Successfully saved.");
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <Box padding={2} component="form" onSubmit={handleSubmit(onSubmit)}>
-      <Stack spacing={2}>
-        <Typography variant="h4">Add a Student</Typography>
+    <Box
+      sx={{
+        backgroundColor: "#f5f7fa",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 4,
+      }}
+    >
+      <Paper
+        elevation={3}
+        sx={{
+          width: "100%",
+          maxWidth: 600,
+          padding: 4,
+          borderRadius: 3,
+          backgroundColor: "#fff",
+        }}
+      >
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Stack spacing={3}>
+            <Typography variant="h5" fontWeight="bold" textAlign="center">
+              Add a Student
+            </Typography>
 
-        <TextField
-          label="Name"
-          fullWidth
-          {...register("name")}
-          error={!!errors.name}
-          helperText={errors.name?.message}
-        />
+            <TextField
+              label="Name"
+              fullWidth
+              {...register("name")}
+              error={!!errors.name}
+              helperText={errors.name?.message}
+            />
 
-        <TextField
-          label="Age"
-          fullWidth
-          {...register("age")}
-          error={!!errors.age}
-          helperText={errors.age?.message}
-        />
+            <TextField
+              label="Age"
+              fullWidth
+              {...register("age")}
+              error={!!errors.age}
+              helperText={errors.age?.message}
+            />
 
-        <TextField
-          label="Phone"
-          fullWidth
-          {...register("phone")}
-          error={!!errors.phone}
-          helperText={errors.phone?.message}
-        />
+            <TextField
+              label="Phone"
+              fullWidth
+              {...register("phone")}
+              error={!!errors.phone}
+              helperText={errors.phone?.message}
+            />
 
-        <TextField
-          label="Address"
-          fullWidth
-          {...register("address")}
-          error={!!errors.address}
-          helperText={errors.address?.message}
-        />
+            <TextField
+              label="Address"
+              fullWidth
+              {...register("address")}
+              error={!!errors.address}
+              helperText={errors.address?.message}
+            />
 
-        <TextField
-          label="Father Name"
-          fullWidth
-          {...register("father_name")}
-          error={!!errors.father_name}
-          helperText={errors.father_name?.message}
-        />
+            <TextField
+              label="Father Name"
+              fullWidth
+              {...register("father_name")}
+              error={!!errors.father_name}
+              helperText={errors.father_name?.message}
+            />
 
-        <TextField
-          label="Major"
-          fullWidth
-          {...register("major")}
-          error={!!errors.major}
-          helperText={errors.major?.message}
-        />
+            <TextField
+              label="Major"
+              fullWidth
+              {...register("major")}
+              error={!!errors.major}
+              helperText={errors.major?.message}
+            />
 
-        {/* Gender Select */}
-        <FormControl fullWidth error={!!errors.gender}>
-          <InputLabel id="gender-label">Gender</InputLabel>
-          <Controller
-            name="gender"
-            control={control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                labelId="gender-label"
-                label="Gender"
-                value={field.value || ""}
-              >
-                {GENDER.map((gender, index) => (
-                  <MenuItem key={index} value={gender.value}>
-                    {gender.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            )}
-          />
-          <FormHelperText>{errors.gender?.message}</FormHelperText>
-        </FormControl>
-
-        {/* DOB DatePicker */}
-        <FormControl fullWidth error={!!errors.dob}>
-          <Controller
-            name="dob"
-            control={control}
-            render={({ field, fieldState: { error } }) => (
-              <DatePicker
-                value={field.value ? dayjs(field.value, "YYYY/MM/DD") : null}
-                onChange={(e) => field.onChange(e?.format("YYYY/MM/DD"))}
-                format="DD/MM/YYYY"
-                label="DOB"
-                slotProps={{
-                  textField: {
-                    error: !!error,
-                    helperText: error?.message,
-                  },
-                }}
+            <FormControl fullWidth error={!!errors.gender}>
+              <InputLabel id="gender-label">Gender</InputLabel>
+              <Controller
+                name="gender"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    labelId="gender-label"
+                    label="Gender"
+                    value={field.value || ""}
+                  >
+                    {GENDER.map((gender, index) => (
+                      <MenuItem key={index} value={gender.value}>
+                        {gender.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                )}
               />
-            )}
-          />
-          <FormHelperText>{errors.dob?.message}</FormHelperText>
-        </FormControl>
+              <FormHelperText>{errors.gender?.message}</FormHelperText>
+            </FormControl>
 
-        <Button type="submit" variant="contained">
-          Save Student
-        </Button>
-      </Stack>
+            <FormControl fullWidth error={!!errors.dob}>
+              <Controller
+                name="dob"
+                control={control}
+                render={({ field, fieldState: { error } }) => (
+                  <DatePicker
+                    value={field.value ? dayjs(field.value, "YYYY/MM/DD") : null}
+                    onChange={(e) => field.onChange(e?.format("YYYY/MM/DD"))}
+                    format="DD/MM/YYYY"
+                    label="DOB"
+                    slotProps={{
+                      textField: {
+                        error: !!error,
+                        helperText: error?.message,
+                      },
+                    }}
+                  />
+                )}
+              />
+            </FormControl>
+
+            <Button type="submit" variant="contained" size="large">
+              Save Student
+            </Button>
+          </Stack>
+        </form>
+      </Paper>
     </Box>
   );
 }
+

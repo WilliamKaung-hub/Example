@@ -18,29 +18,36 @@ import Link from "next/link";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useEffect,useState } from "react";
 
-export default function StudentList() {
-  const getStudentList = async () => {
+export default function BookList() {
+  const [books, setBooks] = useState([]);
+
+  const getBookList = async () => {
     try {
-      console.log("getStudentList");
-      const response = await axios.get("/api/students");
-      console.log(response.data);
+      const response = await axios.get("/api/books");
+      setBooks(response.data);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching books:", error);
     }
   };
+   useEffect(() => {
+      getBookList();
+    }, []);
+
   return (
     <Box padding={2}>
       <Stack alignItems="flex-end">
         <Link passHref href="">
           {" "}
-          <Button>Add Student</Button>
+          <Button>Add Book</Button>
         </Link>
       </Stack>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
+              <TableCell>Book_ID</TableCell>
               <TableCell>Book Name</TableCell>
               <TableCell>Author</TableCell>
               <TableCell>Published_Year</TableCell>
@@ -49,29 +56,52 @@ export default function StudentList() {
           </TableHead>
 
           <TableBody>
-            <TableRow>
-              <TableCell>Atomic Habits</TableCell>
-              <TableCell>William</TableCell>
+           {books.length > 0 ? (
+              books.map((book, index) => (
+                <TableRow
+                  key={book.id}
+                  hover
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "#f0f0f0",
+                    },
+                  }}
+                >
+              <TableCell>{index+1}</TableCell>
+              <TableCell>{book.title}</TableCell>
              
-              <TableCell>1980</TableCell>
+              <TableCell>{book.author}</TableCell>
+              <TableCell>{book.published_year}</TableCell>
 
-              <TableCell align="center">
-                <Link href={"/book/1"} passHref>
-                  <IconButton>
-                    <VisibilityIcon />
-                  </IconButton>
-                </Link>
-                <Link href={"/books/1/edit"} passHref>
-                  <IconButton>
-                    <EditIcon />
-                  </IconButton>
-                </Link>
-                <IconButton>
-                  <DeleteIcon />
-                </IconButton>
-              </TableCell>
-            </TableRow>
+             <TableCell align="center">
+                    <Link href={`/books/${book.id}`} passHref>
+                      <IconButton color="primary">
+                        <VisibilityIcon />
+                      </IconButton>
+                    </Link>
+                    <Link href={`/books/${book.id}/edit`} passHref>
+                      <IconButton color="success">
+                        <EditIcon />
+                      </IconButton>
+                    </Link>
+                    <IconButton
+                      color="error"
+                      onClick={() => handleDelete(book.id)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={10} align="center">
+                  No students found.
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
+            
         </Table>
       </TableContainer>
     </Box>
