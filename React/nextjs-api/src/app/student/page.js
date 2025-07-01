@@ -65,7 +65,7 @@ export default function StudentList() {
           <Typography variant="h5" fontWeight="bold">
             Student List
           </Typography>
-          <Link href="/students/create" passHref>
+          <Link href="/student/create" passHref>
             <Button variant="contained" color="primary">
               Add Student
             </Button>

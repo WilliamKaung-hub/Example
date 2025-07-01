@@ -2,7 +2,6 @@
 
 import { Button, Typography } from '@mui/material'
 import { useSearchParams ,useRouter} from 'next/navigation';
-
 import React from 'react'
 
 export default function dashboard() {

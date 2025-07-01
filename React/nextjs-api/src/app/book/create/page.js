@@ -13,12 +13,6 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 
-// Gender options
-const GENDER = [
-  { value: "male", label: "Male" },
-  { value: "female", label: "Female" },
-];
-
 // Validation schema
 const schema = yup.object().shape({
   title: yup.string().required("Title is required"),

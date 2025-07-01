@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
       <body className={`${inter.variable} ${robotoMono.variable}`}>
         <AppRouterCacheProvider>
           <StyleRoot>
-            <AppLayout> {children}</AppLayout>
+            <AppLayout>{children}</AppLayout>
           </StyleRoot>
         </AppRouterCacheProvider>
       </body>

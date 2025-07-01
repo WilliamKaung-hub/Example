@@ -12,13 +12,14 @@ import {
   TableHead,
   TableRow,
   IconButton,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function BookList() {
   const [books, setBooks] = useState([]);
@@ -31,21 +32,25 @@ export default function BookList() {
       console.error("Error fetching books:", error);
     }
   };
-   useEffect(() => {
-      getBookList();
-    }, []);
+  useEffect(() => {
+    getBookList();
+  }, []);
 
   return (
     <Box padding={2}>
-      <Stack alignItems="flex-end">
-        <Link passHref href="">
-          {" "}
-          <Button>Add Book</Button>
-        </Link>
-      </Stack>
-      <TableContainer component={Paper}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+                <Typography variant="h5" fontWeight="bold">
+                  Book List
+                </Typography>
+                <Link href="/book/create" passHref>
+                  <Button variant="contained" color="primary">
+                    Add Book
+                  </Button>
+                </Link>
+              </Stack>
+      <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: 3 }}>
         <Table>
-          <TableHead>
+          <TableHead sx={{ backgroundColor: "#1976d2" }}>
             <TableRow>
               <TableCell>Book_ID</TableCell>
               <TableCell>Book Name</TableCell>
@@ -56,7 +61,7 @@ export default function BookList() {
           </TableHead>
 
           <TableBody>
-           {books.length > 0 ? (
+            {books.length > 0 ? (
               books.map((book, index) => (
                 <TableRow
                   key={book.id}
@@ -67,13 +72,13 @@ export default function BookList() {
                     },
                   }}
                 >
-              <TableCell>{index+1}</TableCell>
-              <TableCell>{book.title}</TableCell>
-             
-              <TableCell>{book.author}</TableCell>
-              <TableCell>{book.published_year}</TableCell>
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>{book.title}</TableCell>
 
-             <TableCell align="center">
+                  <TableCell>{book.author}</TableCell>
+                  <TableCell>{book.published_year}</TableCell>
+
+                  <TableCell align="center">
                     <Link href={`/books/${book.id}`} passHref>
                       <IconButton color="primary">
                         <VisibilityIcon />
@@ -101,7 +106,6 @@ export default function BookList() {
               </TableRow>
             )}
           </TableBody>
-            
         </Table>
       </TableContainer>
     </Box>
